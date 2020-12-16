@@ -1,0 +1,365 @@
+command-ide {
+    color: black;
+    display: block;
+    font-family: monospace;
+    font-size: 16px;
+    height: 100%;
+    padding: 0px 10px 10px;
+    position: relative;
+    tab-size: 4;
+    -moz-tab-size: 4;
+
+    --ordinal-width: 2em;
+    --line-height: calc(1em + 3px);
+    --shadow: 0px 0px 20px 5px #ffffff, 4px 4px 15px #000000;
+
+    --primary-color: #3474b1ff;
+    --primary-color-translucent: #3474b180;
+    --menu-color: #4e4e4eff;
+    --background-color: #fafafa;
+
+    --ordinal-color: #bebebe;
+    --keyword-color: #3474b1;
+    --argument-color: #9f2cb1;
+    --comment-color: #bebebe;
+    --error-color: #ff0000;
+    --tooltip-textcolor: #ffffff;
+}
+
+command-ide, command-ide * {
+    box-sizing: border-box;
+}
+
+command-ide > .command-ide-header {
+    align-items: center;
+    display: flex;
+    height: 35px;
+    margin: 10px 0px;
+}
+
+command-ide > .command-ide-header button {
+    overflow: visible;
+}
+
+command-ide > .command-ide-header .icon-menu{
+    color: var(--comment-color);
+    cursor: pointer;
+    font-size: 25px;
+    margin: 0px 5px;
+    position: relative;
+}
+
+command-ide > .command-ide-header .icon-menu > ul{
+    background: var(--background-color);
+    border-radius: 5px;
+    box-shadow: var(--shadow);
+    font-family: monospace;
+    position: absolute;
+    top: 40px;
+    visibility: hidden;
+    width: 300px;
+}
+
+command-ide > .command-ide-header .icon-menu > ul > li:first-child{
+    color: var(--menu-color);
+    font-size: 18px;
+    font-weight: initial;
+    padding: 10px;
+    text-transform: none;
+}
+
+command-ide > .command-ide-header .icon-menu > ul > li{
+    color: var(--keyword-color);
+    cursor: initial;
+}
+
+command-ide > .command-ide-header .icon-menu > ul > li:not(:first-child):hover{
+    background: var(--primary-color-translucent);
+}
+
+command-ide > .command-ide-header .icon-menu > ul .checkbox-label{
+    align-items: center;
+    display: flex;
+    font-size: 16px;
+    font-weight: bold !important;
+    position: relative;
+}
+
+command-ide > .command-ide-header .icon-menu > ul .checkbox-label > .label-text{
+    padding: 10px 0px;
+    text-transform: capitalize;
+}
+
+command-ide > .command-ide-header .icon-menu > ul .checkbox-label > input[type="checkbox"]{
+    margin: 0px 10px;
+    position: absolute;
+    visibility: hidden;
+    height: 0px;
+    width: 0px;
+}
+
+command-ide > .command-ide-header .icon-menu > ul[visible] .checkbox-label > .checkmark{
+    visibility: visible;
+}
+
+command-ide > .command-ide-header .icon-menu > ul .checkbox-label > .checkmark{
+    border: solid 2px var(--menu-color);
+    border-radius: 3px;
+    cursor: pointer;
+    margin: 0px 10px;
+    position: relative;
+    height: 22px;
+    width: 22px;
+}
+
+command-ide > .command-ide-header .icon-menu > ul .checkbox-label > input[type="checkbox"]:checked ~ .checkmark{
+    background-color: #3474b1;
+    border: none;
+}
+
+command-ide > .command-ide-header .icon-menu > ul .checkbox-label > input[type="checkbox"]:checked ~ .checkmark::after{
+    content: "✔";
+    color: white;
+    position: absolute;
+    left: 5px;
+    bottom: 2px;
+}
+
+command-ide > .command-ide-header #ide-find-replace{
+    background: var(--background-color);
+    border-radius: 3px;
+    box-shadow: var(--shadow);
+    display: flex;
+    flex-direction: column;
+    margin: 15px 0px;
+    position: absolute;
+    top: 100%;
+    left: 0%;
+    width: 450px;
+    visibility: hidden;
+}
+
+command-ide > .command-ide-header #ide-find-replace > input{
+    background: none;
+    border: none;
+    border-bottom: solid 2px var(--ordinal-color);
+    border-radius: 3px;
+    font-size: 16px;
+    font-weight: bold;
+    height: 2em;
+    margin: 10px 20px 20px 20px;
+    padding: 0px 5px;
+}
+
+command-ide > .command-ide-header #ide-find-replace > input:focus{
+    border-bottom: solid 2px var(--primary-color);
+}
+
+
+command-ide > .command-ide-header #ide-find-replace > input::placeholder,
+command-ide > .command-ide-header #ide-find-replace > input::-webkit-input-placeholder{
+    color: var(--comment-color);
+    font-weight: initial;
+    opacity: 1;
+}
+
+command-ide > .command-ide-editor {
+    display: flex;
+    height: calc(100% - 40px);
+    overflow-y: scroll;
+    scrollbar-color: var(--primary-color) #ffffff00;
+    scrollbar-width: thin;
+}
+
+/*-webkit-scrollbar- is a vendor prefix, but oddly enough is supported by all major browsers except Firefox... (Sep 2020)*/
+command-ide > .command-ide-editor::-webkit-scrollbar{
+    height: 8px;
+    width: 8px;
+}
+
+/*-webkit-scrollbar- is a vendor prefix, but oddly enough is supported by all major browsers except Firefox... (Sep 2020)*/
+command-ide > .command-ide-editor::-webkit-scrollbar-thumb{
+    background:  var(--primary-color-translucent);
+    border-radius: 3px;
+}
+
+/*-webkit-scrollbar- is a vendor prefix, but oddly enough is supported by all major browsers except Firefox... (Sep 2020)*/
+command-ide > .command-ide-editor::-webkit-scrollbar-thumb:hover{
+    background: var(--primary-color);
+}
+
+/*-webkit-scrollbar- is a vendor prefix, but oddly enough is supported by all 5 major browsers... (Sep 2020)*/
+command-ide > .command-ide-editor::-webkit-scrollbar{
+    height: 8px;
+    width: 8px;
+}
+
+/*-webkit-scrollbar- is a vendor prefix, but oddly enough is supported by all 5 major browsers... (Sep 2020)*/
+command-ide > .command-ide-editor::-webkit-scrollbar-thumb{
+    background:  var(--primary-color-translucent);
+    border-radius: 3px;
+}
+
+/*-webkit-scrollbar- is a vendor prefix, but oddly enough is supported by all 5 major browsers... (Sep 2020)*/
+command-ide > .command-ide-editor::-webkit-scrollbar-thumb:hover{
+    background: var(--primary-color);
+}
+
+command-ide > .command-ide-editor .ordinals {
+    min-width: var(--ordinal-width);
+    text-align: right;
+}
+
+command-ide > .command-ide-editor .ordinals span.ordinal {
+    color: var(--ordinal-color);
+    display: block;
+    font-weight: bold;
+    margin: 5px;
+    min-height: var(--line-height);
+}
+
+command-ide > .command-ide-editor .lines {
+    padding: 0px 10px;
+}
+
+command-ide > .command-ide-editor .lines[disabled] {
+    opacity: 1;
+}
+
+command-ide > .command-ide-editor .lines:empty:before {
+    content: attr(data-placeholder);
+    color: grey;
+}
+
+command-ide > .command-ide-editor .lines *::selection {
+    background-color: var(--menu-color);
+    color: var(--tooltip-textcolor);
+}
+
+command-ide > .command-ide-editor .lines ide-line {
+    display: block;
+    margin: 5px;
+    min-height: var(--line-height);
+    letter-spacing: 0.5px;
+    word-break: break-all;
+}
+
+command-ide > .command-ide-editor .lines ide-line ide-rule,
+command-ide > .command-ide-editor .lines ide-line ide-token,
+command-ide > .command-ide-editor .lines ide-line ide-separator{
+    display: inline; /*making this inline-block or block prevents focusing the caret inside empty nodes*/
+    white-space: pre;
+}
+
+command-ide > .command-ide-editor .lines ide-line ide-token.keywordToken{
+    color: var(--keyword-color);
+    font-weight: bold;
+}
+
+command-ide > .command-ide-editor .lines ide-line ide-token.argumentToken{
+    color: var(--argument-color);
+}
+
+command-ide > .command-ide-editor .lines ide-line ide-token.commentToken{
+    color: var(--comment-color);
+}
+
+command-ide > .command-ide-editor .lines ide-line.invalidLine{
+    text-decoration: underline var(--error-color) dotted;
+}
+
+command-ide > .command-ide-editor .lines ide-line > ide-rule.invalidRule{
+    text-decoration: underline var(--error-color) dotted;
+}
+
+command-ide[token-inspector] > .command-ide-editor .lines ide-line.invalidLine:hover,
+command-ide[token-inspector] > .command-ide-editor .lines ide-line > ide-rule.invalidRule:hover{
+    text-decoration: none;
+}
+
+command-ide[token-inspector] > .command-ide-editor ide-token:hover{
+    border-radius: 4px/10px;
+    box-shadow: 0px 0px 3px var(--ordinal-color);
+}
+
+command-ide > .command-ide-editor .lines ide-line > ide-rule > ide-token.invalidToken{
+    color:  var(--error-color);
+    font-style: italic;
+    text-decoration: underline var(--error-color) dotted;
+}
+
+command-ide ide-tooltip{
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 12px;
+    font-family: sans-serif;
+    position: absolute;
+    visibility: hidden;
+    white-space: pre-line;
+}
+
+command-ide ide-tooltip::before{
+    content: "";
+    position: absolute;
+    height: 0px;
+    width: 0px;
+}
+
+command-ide ide-tooltip.error{
+    background: var(--error-color);
+    border: none;
+    color: var(--tooltip-textcolor);
+    padding: 4px 7px;
+}
+
+command-ide ide-tooltip.error::before{
+    border-left: solid 3px transparent;
+    border-right: solid 3px transparent;
+    border-bottom: 5px solid var(--error-color);
+    bottom: 100%;
+}
+
+command-ide ide-tooltip.error.positioned-above::before {
+    border-bottom: none;
+    border-left: solid 3px transparent;
+    border-right: solid 3px transparent;
+    border-top: 5px solid var(--error-color);
+    top: 100%;
+}
+
+command-ide ide-tooltip.autocomplete{
+    background: var(--background-color);
+    border: solid 1px var(--comment-color);
+    color: var(--menu-color);
+}
+
+command-ide ide-tooltip.autocomplete::before{
+    border-left: solid 5px transparent;
+    border-right: solid 5px transparent;
+    border-bottom: 7px solid var(--comment-color);
+    bottom: 100%;
+    left: 5px;
+}
+
+command-ide ide-tooltip.autocomplete.positioned-above::before {
+    border-bottom: none;
+    border-left: solid 5px transparent;
+    border-right: solid 5px transparent;
+    border-top: 7px solid var(--comment-color);
+    left: 5px;
+    top: 100%;
+}
+
+command-ide ide-tooltip.autocomplete ul{
+    margin: 0px;
+}
+
+command-ide ide-tooltip.autocomplete ul > li.autocomplete-item{
+    cursor: pointer;
+    padding: 6px 10px;
+}
+
+command-ide ide-tooltip.autocomplete ul > li.autocomplete-item.focused,
+command-ide ide-tooltip.autocomplete ul > li.autocomplete-item:hover{
+    background: var(--primary-color-translucent);
+}
